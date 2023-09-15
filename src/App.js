@@ -8,6 +8,9 @@ import EducationPage from './Pages/Education';
 import { RecoilRoot } from 'recoil';
 import ProjectPage from './Pages/Projects';
 import DefaultSidebarForMobile, { DrawerForMobile } from './Components/Sidebar';
+import OutputPage from './Pages/Outputpage';
+import SkillPage from './Pages/Skills';
+import WorkexperiencePage from './Pages/Works';
 function getCurrentDimension(){
   return {
       width: window.innerWidth,
@@ -34,11 +37,11 @@ function App() {
     <div className="App">
       <RecoilRoot>
         <div className='flex flex-col sm:flex-row w-full'>
-      {screenSize.width<700?<DrawerForMobile changeItem={setItem}/>:<DefaultSidebar changeItem={setItem}/>}
+      {screenSize.width<700?<DrawerForMobile  changeItem={setItem}/>:<DefaultSidebar changeItem={setItem}/>}
     
-      <div className='h-full w-full p-10'>
+      <div className='h-full w-full p-2 lg:p-10'>
   
-      {currentItem==0?<BasicDetails/>:currentItem==1?<EducationPage/>:<ProjectPage/>}
+      {currentItem==0?<BasicDetails nav={setItem}/>:currentItem==1?<EducationPage nav={setItem}/>:currentItem==2?<ProjectPage nav={setItem}/>:currentItem==3?<SkillPage nav={setItem}/>:currentItem==4?<WorkexperiencePage nav={setItem}/>:<OutputPage nav={setItem}/>}
       </div>
       </div>
       </RecoilRoot>

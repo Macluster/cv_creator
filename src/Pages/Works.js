@@ -16,30 +16,27 @@ import {
 
 } from 'recoil';
 import { useState } from "react";
-import { projectAtom} from '../State/Atoms'
+import { workExperienceAtom} from '../State/Atoms'
 
-function ProjectPage(props)
+function WorkexperiencePage(props)
 {
     const [open, setOpen] = React.useState(false);
-    const [peojectData,setprojectdata]=useRecoilState(projectAtom)
-
     
-    const [data, setData] = useState([
-      
-
-    ])
-    return(
+    const [workData, setWorkdata] = useRecoilState(workExperienceAtom)
+    
+  return(
         <div className="w-full h-full flex flex-col items-start p-5 lg:p-0">
             <div className="flex flex-row">
-            <h1 className="font-bold text-2xl">Project Details</h1>
+            <h1 className="font-bold text-2xl">Work Details</h1>
             <div className="w-[50px]"></div>
             <h1 className="text-3xl" onMouseDown={()=>{setOpen(!open)}}>+</h1>
             </div>
           
-            {peojectData.map((e=>  <ProjectCard data={e}></ProjectCard>))}
-            {peojectData.length>0?<Button onClick={()=>{props.nav(3)}}>Submit</Button>:<div/>} 
-           
-            <DialogWithForm open={open} setprojectdata={setprojectdata} projectData={peojectData}  setOpen={setOpen}></DialogWithForm>
+            {workData.map((e=>  <WorkexperienceCard data={e}></WorkexperienceCard>))}
+          
+            {workData.length>0?<Button onClick={()=>{props.nav(5)}}>Submit</Button>:<div/>} 
+
+            <DialogWithForm open={open} setWorkdata={setWorkdata} workData={workData} setOpen={setOpen}></DialogWithForm>
           
         </div>
     )
@@ -47,11 +44,11 @@ function ProjectPage(props)
 
 
 
-function ProjectCard({data})
+function WorkexperienceCard({data})
 {
      return    <div className="shadow-lg w-[80%] h-[150px] mt-5    flex flex-col items-start p-10 border border-blue-300 border-5">
-     <h1 className="font-bold">{data['projectName']}</h1>
-     <h1>{data['projectTechnology']}</h1>
+     <h1 className="font-bold">{data['jobTitle']}</h1>
+     <h1>{data['companyName']}</h1>
      <h1>{data['startDate']}-{data['endDate']}</h1>
 
 
@@ -60,26 +57,27 @@ function ProjectCard({data})
 
 
  
-export function DialogWithForm({open,setprojectdata,projectData,setOpen}) {
+export function DialogWithForm({open,setWorkdata,workData,setOpen}) {
  
-    const [projectName, setprojectName] = useState("");
-    const [projectTechnology, setprojectTechnology] = useState("");
-    const [projectDescription, setprojectDescription] = useState("");
-    const [startdate, setstartDate] = useState("");
-    const [enddate, setendDate] = useState("");
+  const [job, setJob] = useState("");
+  const [company, setCompany] = useState("");
+  const [number, setnumber] = useState("");
+  const [startdate, setstartDate] = useState("");
+  const [enddate, setendDate] = useState("");
 
-  
+
 
 
     function set() {
 
+        
       const temp = []
-      projectData.map((e) => { temp.push(e) })
-      temp.push({projectName:projectName,projectTechnology:projectTechnology,projectDescription:projectDescription,startDate:startdate,endDate:enddate})
-      setprojectdata(temp)
+      workData.map((e) => { temp.push(e) })
+      temp.push({ jobTitle: job, companyName: company, phone: number, startDate: startdate, endDate: enddate })
+     setWorkdata(temp)
       setOpen(!open)
         
-     
+      
 
  
       
@@ -101,13 +99,13 @@ export function DialogWithForm({open,setprojectdata,projectData,setOpen}) {
             className="mb-4 grid h-28 place-items-center"
           >
             <Typography variant="h3" color="white">
-              Add Project
+              Add Work
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input label="Project Name" size="lg" onChange={(e)=>{setprojectName(e.target.value)}}/>
-            <Input label="Project Technology"  size="lg" onChange={(e) => { setprojectTechnology(e.target.value) }} />
-            <Input label="Project Description" size="lg"  onChange={(e) => { setprojectDescription(e.target.value) }}  />
+            <Input label="Job title" size="lg" onChange={(e)=>{setJob(e.target.value)}}/>
+            <Input label="Company Name"  size="lg" onChange={(e) => { setCompany(e.target.value) }} />
+            <Input label="Phone Number" size="lg"  onChange={(e) => { setnumber(e.target.value) }}  />
             <Input label="Start Date" size="lg"  onChange={(e) => { setstartDate(e.target.value) }}/>
             <Input label="End Date" size="lg"  onChange={(e) => { setendDate(e.target.value) }}/>
 
@@ -129,4 +127,4 @@ export function DialogWithForm({open,setprojectdata,projectData,setOpen}) {
   );
 }
 
-export default ProjectPage;
+export default  WorkexperiencePage;

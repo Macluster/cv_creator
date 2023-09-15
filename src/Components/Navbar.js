@@ -59,7 +59,12 @@ import {
             </ListItemPrefix>
             Work
           </ListItem>
-        
+          <ListItem onMouseDown={()=>props.changeItem(5)}>
+            <ListItemPrefix>
+              <Cog6ToothIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Output
+          </ListItem>
         </List>
       </Card>
     );
