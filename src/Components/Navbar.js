@@ -25,14 +25,14 @@ import {
           </Typography>
         </div>
         <List>
-          <ListItem>
+          <ListItem onMouseUp={()=>props.changeItem(0)}>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <div  onMouseUp={()=>props.changeItem(0)}> Basic Details</div>
+             Basic Details
            
           </ListItem>
-          <ListItem onClick={()=>props.changeItem(1)}>
+          <ListItem onMouseDown={()=>{props.changeItem(1); console.log("1")}}>
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>

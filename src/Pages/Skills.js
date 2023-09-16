@@ -53,9 +53,9 @@ function SkillsCard(props)
 
     return(
         <div style={{display:"flex",justifyContent:'start',flexDirection:"row",alignItems:"center",width:'auto',height:'auto',color:"gray",marginBottom:10}}>
-            <h6  className="content">{props.skillName}</h6>
+            <h6  className=" text-[15px] lg:text-lg w-[50px] lg:w-[200px] text-start">{props.skillName}</h6>
             <div style={{width:30}}></div>
-            <div style={{width:200,height:20}}>
+            <div style={{width:200,height:20,display:'flex',flexDirection:'row',justifyContent:'start'}}>
                 <div style={{height:20,width:props.skillLevel+"0%",backgroundColor:'yellow'}}></div>
             </div>
             <h6  className="content">{props.skillLevel}</h6>
@@ -99,18 +99,12 @@ export function DialogWithForm({open,skillData,setskilldata,setOpen}) {
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
-          <CardHeader
-            variant="gradient"
-            color="blue"
-            className="mb-4 grid h-28 place-items-center"
-          >
-            <Typography variant="h3" color="white">
-              Add Project
-            </Typography>
-          </CardHeader>
+      
           <CardBody className="flex flex-col gap-4">
+          <h1 className="font-bold text-lg">Add Skill</h1>
+
             <Input label="Skill Name" size="lg" onChange={(e)=>{setskillName(e.target.value)}}/>
-            <Input label="Skill Level"  size="lg" onChange={(e) => { setskillLevel(e.target.value) }} />
+            <Input label="Skill Level Out of 10"  size="lg" onChange={(e) => { setskillLevel(e.target.value) }} />
            
           
           </CardBody>

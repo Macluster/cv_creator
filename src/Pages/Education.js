@@ -85,20 +85,15 @@ export function DialogWithForm({ open, setEducationData, educationData, setOpen 
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
-          <CardHeader
-            variant="gradient"
-            color="blue"
-            className="mb-4 grid h-28 place-items-center"
-          >
-            <Typography variant="h3" color="white">
-              Add Education
-            </Typography>
-          </CardHeader>
+       
           <CardBody className="flex flex-col gap-4">
+          <h1 className="font-bold text-lg">Add Education</h1>
             <Input label="Course" size="lg" onChange={(e) => { setName(e.target.value) }} />
             <Input label="Institution Name" size="lg" onChange={(e) => { setInstituition(e.target.value) }} />
-            <Input label="Start Date" size="lg" onChange={(e) => { setstartDate(e.target.value) }} />
-            <Input label="End Date" size="lg" onChange={(e) => { setendDate(e.target.value) }} />
+          
+         
+            <Input type="date" label="Start Date" size="lg" onChange={(e) => { setstartDate(e.target.value) }} />
+            <Input type="date" label="End Date" size="lg" onChange={(e) => { setendDate(e.target.value) }} />
 
           </CardBody>
           <CardFooter className="pt-0">
