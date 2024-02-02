@@ -10,6 +10,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import CreatorPage from './Pages/CreatorPage';
+import { RecoilRoot } from 'recoil';
 
 
 function App() {
@@ -17,15 +18,16 @@ function App() {
 
   return (
     <div className="App">
+      <RecoilRoot>
       <Router>
         <Routes>
-          <Route exact path="/" element={<HomePage/>} />
-          <Route path="/Login" element={<LoginPage/>} />
-          <Route path="/CreatorPage" element={<CreatorPage/>} />
-         
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/CreatorPage" element={<CreatorPage />} />
+
         </Routes>
       </Router>
-
+      </RecoilRoot>
 
 
 

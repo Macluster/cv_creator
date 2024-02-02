@@ -13,78 +13,84 @@ import {
 } from "@material-tailwind/react";
 import {
 
-    useRecoilState,
+  useRecoilState,
 
 } from 'recoil';
 import { useState } from "react";
-import { projectAtom} from '../State/Atoms'
+import { projectAtom } from '../State/Atoms'
 
-function ProjectPage(props)
-{
-    const [open, setOpen] = React.useState(false);
-    const [peojectData,setprojectdata]=useRecoilState(projectAtom)
+function ProjectPage(props) {
+  const [open, setOpen] = React.useState(false);
+  const [peojectData, setprojectdata] = useRecoilState(projectAtom)
 
-    
-    const [data, setData] = useState([
-      
 
-    ])
-    return(
-        <div className="w-full h-full flex flex-col items-start p-5 lg:p-0">
-            <div className="flex flex-row">
-            <h1 className="font-bold text-2xl">Project Details</h1>
-            <div className="w-[50px]"></div>
-            <h1 className="text-3xl" onMouseDown={()=>{setOpen(!open)}}>+</h1>
-            </div>
-          
-            {peojectData.map((e=>  <ProjectCard data={e}></ProjectCard>))}
-            {peojectData.length>0?<Button onClick={()=>{props.nav(3)}}>Submit</Button>:<div/>} 
-           
-            <DialogWithForm open={open} setprojectdata={setprojectdata} projectData={peojectData}  setOpen={setOpen}></DialogWithForm>
-          
+  const [data, setData] = useState([
+
+
+  ])
+  return (
+    <div className="w-full h-full flex flex-col bg-white items-start p-2 lg:p-10 " >
+      <div className="flex flex-row">
+        <h1 className="font-bold text-2xl  text-[#6962AD]">Project Details</h1>
+
+      </div>
+      <div className="h-[90%] w-full  flex flex-col justify-start overflow-auto" style={peojectData.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
+        {peojectData.map((e => <ProjectCard data={e}></ProjectCard>))}
+        {peojectData.length > 0 ? <div /> : <h3 className="self-center text-[#747264]">No Items Added</h3>}
+
+      </div>
+
+
+
+      <DialogWithForm open={open} setprojectdata={setprojectdata} projectData={peojectData} setOpen={setOpen}></DialogWithForm>
+      <div className="w-full flex justify-between self-end">
+        {peojectData.length > 0 ? <Button onClick={() => { props.nav(5) }}>Submit</Button> : <div />}
+        <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
+          <h1 className="text-white font-bold">+</h1>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 
 
-function ProjectCard({data})
-{
-     return    <div className="shadow-lg w-[80%] h-[150px] mt-5    flex flex-col items-start p-10 border border-blue-300 border-5">
-     <h1 className="font-bold">{data['projectName']}</h1>
-     <h1>{data['projectTechnology']}</h1>
-     <h1>{data['startDate']}-{data['endDate']}</h1>
+function ProjectCard({ data }) {
+  return <div className="shadow-lg w-[100%]  lg:w-[80%]  h-auto mt-5  rounded-lg    flex flex-col items-start p-3  lg:p-10 border border-blue-300 border-5">
+    <h1 className="font-bold text-start">{data['projectName']}</h1>
+    <h1>{data['projectTechnology']}</h1>
+    <h1>{data['startDate']}-{data['endDate']}</h1>
 
 
- </div>
+  </div>
 }
 
 
- 
-export function DialogWithForm({open,setprojectdata,projectData,setOpen}) {
- 
-    const [projectName, setprojectName] = useState("");
-    const [projectTechnology, setprojectTechnology] = useState("");
-    const [projectDescription, setprojectDescription] = useState("");
-    const [startdate, setstartDate] = useState("");
-    const [enddate, setendDate] = useState("");
 
-  
+export function DialogWithForm({ open, setprojectdata, projectData, setOpen }) {
+
+  const [projectName, setprojectName] = useState("");
+  const [projectTechnology, setprojectTechnology] = useState("");
+  const [projectDescription, setprojectDescription] = useState("");
+  const [startdate, setstartDate] = useState("");
+  const [enddate, setendDate] = useState("");
 
 
-    function set() {
 
-      const temp = []
-      projectData.map((e) => { temp.push(e) })
-      temp.push({projectName:projectName,projectTechnology:projectTechnology,projectDescription:projectDescription,startDate:startdate,endDate:enddate})
-      setprojectdata(temp)
-      setOpen(!open)
-        
-     
 
- 
-      
-    }
+  function set() {
+
+    const temp = []
+    projectData.map((e) => { temp.push(e) })
+    temp.push({ projectName: projectName, projectTechnology: projectTechnology, projectDescription: projectDescription, startDate: startdate, endDate: enddate })
+    setprojectdata(temp)
+    setOpen(!open)
+
+
+
+
+
+  }
 
   return (
     <>
@@ -92,31 +98,33 @@ export function DialogWithForm({open,setprojectdata,projectData,setOpen}) {
       <Dialog
         size="xs"
         open={open}
-     
+
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
-         
+
           <CardBody className="flex flex-col gap-4">
-          <h1 className="font-bold text-lg">Add Education</h1>
+            <h1 className="font-bold text-lg">Add Education</h1>
 
-            <Input label="Project Name" size="lg" onChange={(e)=>{setprojectName(e.target.value)}}/>
-            <Input label="Technology"  size="lg" onChange={(e) => { setprojectTechnology(e.target.value) }} />
-            <Textarea label="Project Description" size="lg"  onChange={(e) => { setprojectDescription(e.target.value) }}  />
-            <Input type="date" label="Start Date" size="lg"  onChange={(e) => { setstartDate(e.target.value) }}/>
-            <Input type="date" label="End Date" size="lg"  onChange={(e) => { setendDate(e.target.value) }}/>
+            <Input label="Project Name" size="lg" onChange={(e) => { setprojectName(e.target.value) }} />
+            <Input label="Technology" size="lg" onChange={(e) => { setprojectTechnology(e.target.value) }} />
+            <Textarea label="Project Description" size="lg" onChange={(e) => { setprojectDescription(e.target.value) }} />
+            <Input type="date" label="Start Date" size="lg" onChange={(e) => { setstartDate(e.target.value) }} />
+            <Input type="date" label="End Date" size="lg" onChange={(e) => { setendDate(e.target.value) }} />
 
-          
+
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={()=>{set()}} fullWidth>
-              Submit
-            </Button>
-            <div className="h-[10px]"></div>
-            <Button variant="gradient" onClick={()=>{setOpen(false)}} fullWidth>
-              Cancel
-            </Button>
-           
+          <div className="flex justify-around">
+              <Button variant="gradient" onClick={() => { set() }} >
+                Submit
+              </Button>
+              <div className="h-[10px]"></div>
+              <Button variant="gradient" onClick={() => { setOpen(false) }} >
+                Cancel
+              </Button>
+            </div>
+
           </CardFooter>
         </Card>
       </Dialog>

@@ -24,17 +24,32 @@ function EducationPage(props) {
   const data = []
 
   return (
-    <div className="w-full h-full flex flex-col items-start p-5 lg:p-0 " >
+    <div className="w-full h-full flex flex-col bg-white items-start  p-2 lg:p-10 " >
       <div className="flex flex-row">
-        <h1 className="font-bold text-2xl">Education Details</h1>
-        <div className="w-[50px]"></div>
-        <h1 className="text-3xl" onMouseDown={() => { setOpen(!open) }}>+</h1>
+        <h1 className="font-bold text-2xl  text-[#6962AD]">Education Details</h1>
+
+      </div>
+      <div className="h-[90%] w-full  flex flex-col  overflow-auto" style={EducationData.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
+        {EducationData.map((e => <EducationCard data={e}></EducationCard>))}
+        {EducationData.length > 0 ? <div /> : <h3 className="self-center text-[#747264]">No Items Added</h3>}
+
+
       </div>
 
-      {EducationData.map((e => <EducationCard data={e}></EducationCard>))}
-     {EducationData.length>0?<Button onClick={()=>{props.nav(2)}}>Submit</Button>:<div/>} 
+
 
       <DialogWithForm open={open} setEducationData={setEducationdata} educationData={EducationData} setOpen={setOpen}></DialogWithForm>
+
+
+      <div className="w-full flex justify-between self-end">
+        {EducationData.length > 0 ? <Button className="w-['200px']" onClick={() => { props.nav(4) }}>Submit</Button> : <div />}
+        <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
+          <h1 className="text-white font-bold">+</h1>
+        </div>
+
+      </div>
+
+
 
     </div>
   )
@@ -43,11 +58,11 @@ function EducationPage(props) {
 
 
 function EducationCard({ data }) {
-  return <div className="shadow-lg w-[80%] h-[150px] mt-5    flex flex-col items-start p-10 border border-blue-300 border-5">
-    <h1 className="font-bold">{data['courseName']}</h1>
-    <h1>{data['instituitionName']}</h1>
+  return <div className="shadow-lg  w-[100%]  lg:w-[80%]    h-auto mt-5  rounded-lg   flex flex-col items-start p-3  lg:p-10 border border-[#6962AD] border-5">
+    <h1 className="font-bold text-start">{data['courseName']}</h1>
+    <h1 className="text-start">{data['instituitionName']}</h1>
     <h1>{data['startDate']}-{data['endDate']}</h1>
-    
+
 
 
   </div>
@@ -85,25 +100,28 @@ export function DialogWithForm({ open, setEducationData, educationData, setOpen 
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
-       
+
           <CardBody className="flex flex-col gap-4">
-          <h1 className="font-bold text-lg">Add Education</h1>
+            <h1 className="font-bold text-lg">Add Education</h1>
             <Input label="Course" size="lg" onChange={(e) => { setName(e.target.value) }} />
             <Input label="Institution Name" size="lg" onChange={(e) => { setInstituition(e.target.value) }} />
-          
-         
+
+
             <Input type="date" label="Start Date" size="lg" onChange={(e) => { setstartDate(e.target.value) }} />
             <Input type="date" label="End Date" size="lg" onChange={(e) => { setendDate(e.target.value) }} />
 
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={() => { set() }} fullWidth>
-              Submit
-            </Button>
-            <div className="h-[10px]"></div>
-            <Button variant="gradient" onClick={() => { setOpen(false) }} fullWidth>
-              Cancel
-            </Button>
+            <div className="flex justify-around">
+              <Button variant="gradient" onClick={() => { set() }} >
+                Submit
+              </Button>
+              <div className="h-[10px]"></div>
+              <Button variant="gradient" onClick={() => { setOpen(false) }} >
+                Cancel
+              </Button>
+            </div>
+
 
           </CardFooter>
         </Card>

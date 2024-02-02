@@ -16,6 +16,7 @@ default:{email:''}
   const EducationAtom = atom(  {key:'EducationAtom',default:[]});
   const skillAtom = atom(  {key:'skillAtom',default:[]});
   const projectAtom = atom(  {key:'projectAtom',default:[]});
+  const otherAtom=atom({key:'otherAtom',default:[]})
 
-  export {basicDetailsAtom,workExperienceAtom,EducationAtom,skillAtom,projectAtom};
+  export {basicDetailsAtom,workExperienceAtom,EducationAtom,skillAtom,projectAtom,otherAtom};
   

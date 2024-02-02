@@ -52,45 +52,45 @@ export function DrawerForMobile(props) {
           </IconButton>
         </div>
         <List>
-          <ListItem onMouseUp={() => { props.changeItem(0); closeDrawer() }}>
+          <ListItem onMouseUp={() => { props.changeItem(2); closeDrawer() }}>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
             Basic Details
 
           </ListItem>
-          <ListItem onMouseUp={() => { props.changeItem(1); closeDrawer() }}>
+          <ListItem onMouseUp={() => { props.changeItem(3); closeDrawer() }}>
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>
             Education
           </ListItem>
-          <ListItem onMouseUp={() => { props.changeItem(2); closeDrawer() }}>
+          <ListItem onMouseUp={() => { props.changeItem(4); closeDrawer() }}>
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
             Project
 
           </ListItem >
-          <ListItem onMouseUp={() => { props.changeItem(3); closeDrawer() }}>
+          <ListItem onMouseUp={() => { props.changeItem(5); closeDrawer() }}>
             <ListItemPrefix>
               <UserCircleIcon className="h-5 w-5" />
             </ListItemPrefix>
             Skill
           </ListItem>
-          <ListItem onMouseUp={() => { props.changeItem(4); closeDrawer() }}>
+          <ListItem onMouseUp={() => { props.changeItem(6); closeDrawer() }}>
             <ListItemPrefix>
               <Cog6ToothIcon className="h-5 w-5" />
             </ListItemPrefix>
             Work
           </ListItem>
-          <ListItem onMouseUp={() => { props.changeItem(5); closeDrawer() }}>
-            <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Output
-          </ListItem>
+        
         </List>
+        <div className="flex justify-around mt-5">
+        <button onMouseDown={()=>{props.changeItem(0); closeDrawer()}} className="h-[30px] w-[40%]  bg-black text-white rounded ">Add a section</button>
+        <button onMouseDown={()=>{props.changeItem(1);closeDrawer()}} className="h-[30px] w-[40%] bg-black text-white rounded ">Output</button>
+
+        </div>
       </Drawer>
     </React.Fragment>
   );
