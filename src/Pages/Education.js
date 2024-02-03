@@ -15,6 +15,8 @@ import {
   useRecoilState,
 
 } from 'recoil';
+import { set, ref, onValue, push, get, child, getDatabase } from "firebase/database";
+import { firedata, auth } from '../backend/Database'
 import { useState } from "react";
 import { EducationAtom } from '../State/Atoms'
 
@@ -23,13 +25,29 @@ function EducationPage(props) {
   const [EducationData, setEducationdata] = useRecoilState(EducationAtom)
   const data = []
 
+  var uid = localStorage.getItem("uid")
+  var isLoggedIn = uid != null ? true : false
+
+  if (isLoggedIn) {
+    get(child(ref(getDatabase()), "Users/" + uid + "/EducationDetails")).then((snapshot) => {
+      if (snapshot.exists()) {
+        setEducationdata(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+  }
+
   return (
-    <div className="w-full h-full flex flex-col bg-white items-start  p-2 lg:p-10 " >
+    <div className="w-full h-full flex flex-col bg-white items-start p-2 lg:p-10  " >
       <div className="flex flex-row">
         <h1 className="font-bold text-2xl  text-[#6962AD]">Education Details</h1>
 
       </div>
-      <div className="h-[90%] w-full  flex flex-col  overflow-auto" style={EducationData.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
+      <div className=" h-[90%]  lg:h-[300px]  w-full  flex flex-col  overflow-auto" style={EducationData.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
         {EducationData.map((e => <EducationCard data={e}></EducationCard>))}
         {EducationData.length > 0 ? <div /> : <h3 className="self-center text-[#747264]">No Items Added</h3>}
 
@@ -42,7 +60,16 @@ function EducationPage(props) {
 
 
       <div className="w-full flex justify-between self-end">
-        {EducationData.length > 0 ? <Button className="w-['200px']" onClick={() => { props.nav(4) }}>Submit</Button> : <div />}
+        {EducationData.length > 0 ? <Button className="w-['200px']" onClick={() => {
+
+          var uid = localStorage.getItem("uid")
+
+          var maptoSend = EducationData
+          set(ref(firedata, "Users/" + uid + "/EducationDetails"), maptoSend);
+          props.nav(4)
+
+
+        }}>Submit</Button> : <div />}
         <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
           <h1 className="text-white font-bold">+</h1>
         </div>

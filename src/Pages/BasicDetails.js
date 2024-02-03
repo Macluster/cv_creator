@@ -3,6 +3,8 @@ import { Input, Button } from "@material-tailwind/react";
 
 import { basicDetailsAtom } from '../State/Atoms'
 import { useState, useRef } from "react";
+import { set, ref, onValue, push, get, child, getDatabase } from "firebase/database";
+import { firedata, auth } from '../backend/Database'
 import {
 
     useRecoilState,
@@ -11,10 +13,10 @@ import {
 
 function BasicDetails(props) {
     const [BasicDetails, setBasicDetails] = useRecoilState(basicDetailsAtom);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [adress, setAdress] = useState("");
+    const [name, setName] = useState("Name");
+    const [email, setEmail] = useState("Email");
+    const [phone, setPhone] = useState("Phone No");
+    const [adress, setAdress] = useState("Address");
     const [file, setFile] = useState();
     const fileRef = useRef(null);
 
@@ -22,12 +24,34 @@ function BasicDetails(props) {
         fileRef.current.click();
     };
 
+    var uid = localStorage.getItem("uid")
+    var isLoggedIn = uid != null ? true : false
+
+    if (isLoggedIn) {
+        get(child(ref(getDatabase()), "Users/" + uid + "/BasicDetails")).then((snapshot) => {
+            if (snapshot.exists()) {
+                setBasicDetails(snapshot.val());
+                setName(snapshot.val()['name'])
+                setEmail(snapshot.val()['email'])
+                setPhone(snapshot.val()['phone'])
+                setAdress(snapshot.val()['adress'])
+             
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+
+    }
+
+
     const handleChange = (e) => {
         setFile(URL.createObjectURL(e.target.files[0]))
     }
 
     return (
-        <div className="p-5 lg:p-0 w-full h-full bg-white flex flex-col lg:flex-row items-center justify-around">
+        <div className="p-2 lg:p-0 w-full h-full bg-white flex flex-col lg:flex-row items-center justify-around">
 
 
             <div className="flex flex-col p-2 h-full justify-center ">
@@ -57,26 +81,31 @@ function BasicDetails(props) {
 
 
                 <div className="w-72">
-                    <Input label="Username" onChange={(e) => { setName(e.target.value) }} />
+                    <input className="bg-[#EEEDEB] w-[300px] p-2 rounded-lg" placeholder={name} onChange={(e) => { setName(e.target.value) }} />
                 </div>
                 <div className="h-[20px]"></div>
                 <div className="w-72">
-                    <Input label="Email" onChange={(e) => { setEmail(e.target.value) }} />
-                </div>
-                <div className="h-[20px]"></div>
-
-                <div className="w-72">
-                    <Input label="Phone" onChange={(e) => { setPhone(e.target.value) }} />
+                    <input className="bg-[#EEEDEB] w-[300px] p-2 rounded-lg" placeholder={email} onChange={(e) => { setEmail(e.target.value) }} />
                 </div>
                 <div className="h-[20px]"></div>
 
                 <div className="w-72">
-                    <Input label="Adress" onChange={(e) => { setAdress(e.target.value) }} />
+                    <input className="bg-[#EEEDEB] w-[300px] p-2 rounded-lg" placeholder={phone} onChange={(e) => { setPhone(e.target.value) }} />
+                </div>
+                <div className="h-[20px]"></div>
+
+                <div className="w-72">
+                    <input className="bg-[#EEEDEB] w-[300px] p-2 rounded-lg" placeholder={adress} onChange={(e) => { setAdress(e.target.value) }} />
                 </div>
                 <div className="h-[50px]"></div>
                 <Button onClick={() => {
 
+
                     setBasicDetails({ name: name, email: email, phone: phone, adress: adress, image: file })
+                    var uid = localStorage.getItem("uid")
+
+                    var maptoSend = { uid: uid, name: name, email: email, phone: phone, adress: adress, image: file }
+                    set(ref(firedata, "Users/"+uid+"/BasicDetails"), maptoSend);
                     props.nav(3)
                 }}>Submit</Button>
 

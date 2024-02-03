@@ -17,6 +17,8 @@ import {
 } from 'recoil';
 import { useState } from "react";
 import { skillAtom } from '../State/Atoms'
+import { set, ref, onValue, push,get,child,getDatabase } from "firebase/database";
+import { firedata, auth } from '../backend/Database'
 
 function SkillPage(props) {
   const [open, setOpen] = React.useState(false);
@@ -27,6 +29,23 @@ function SkillPage(props) {
 
 
   ])
+
+
+  var uid = localStorage.getItem("uid")
+  var isLoggedIn = uid != null ? true : false
+
+  if (isLoggedIn) {
+      get(child(ref(getDatabase()), "Users/"+uid+"/SkillDetails")).then((snapshot) => {
+          if (snapshot.exists()) {
+              setskilldata(snapshot.val());
+          } else {
+              console.log("No data available");
+          }
+      }).catch((error) => {
+          console.error(error);
+      });
+
+  }
   return (
     <div className="w-full h-full flex flex-col items-start  bg-white p-2 lg:p-10">
        <div className="flex flex-row">
@@ -34,7 +53,7 @@ function SkillPage(props) {
 
       </div>
      
-      <div className="h-[90%] w-full  flex flex-col justify-start overflow-auto" style={skillData.length > 0?{justifyContent:"start"}:{justifyContent:"center"}}>
+      <div className="h-[90%]  lg:h-[300px] w-full  flex flex-col justify-start overflow-auto" style={skillData.length > 0?{justifyContent:"start"}:{justifyContent:"center"}}>
       {skillData.map((e => <SkillsCard skillLevel={e['skillLevel']} skillName={e['skillName']} />))}
       {skillData.length > 0 ? <div/>: <h3 className="self-center text-[#747264]">No Items Added</h3>}
       </div>
@@ -42,7 +61,13 @@ function SkillPage(props) {
 
       <DialogWithForm open={open} skillData={skillData} setskilldata={setskilldata} setOpen={setOpen}></DialogWithForm>
       <div className="w-full flex justify-between self-end">
-        {skillData.length > 0 ? <Button onClick={() => { props.nav(6) }}>Submit</Button> : <div />}
+        {skillData.length > 0 ? <Button onClick={() => { 
+          
+          var uid = localStorage.getItem("uid")
+
+          var maptoSend = skillData
+          set(ref(firedata, "Users/"+uid+"/SkillDetails"), maptoSend);
+          props.nav(6) }}>Submit</Button> : <div />}
         <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
           <h1 className="text-white font-bold">+</h1>
         </div>

@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import CreatorPage from './Pages/CreatorPage';
 import { RecoilRoot } from 'recoil';
+import SignUpPage from './Pages/SignUppage';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/CreatorPage" element={<CreatorPage />} />
+          <Route path="/SignUp" element={<SignUpPage/>} />
 
         </Routes>
       </Router>
