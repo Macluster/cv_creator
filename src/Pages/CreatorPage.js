@@ -70,7 +70,7 @@ function CreatorPage() {
                     <div className='flex flex-col h-[50px] w-full items-end justify-center '>
 
                         <div className='flex w-full  flex-row items-center justify-between lg:justify-end p-2'>
-                            <img onClick={()=>{setOpen(true)}} className='visible lg:invisible' src='https://cdn-icons-png.flaticon.com/128/6638/6638977.png' height={30} width={30} />
+                            <img onClick={() => { setOpen(true) }} className='visible lg:invisible' src='https://cdn-icons-png.flaticon.com/128/11741/11741063.png' height={30} width={30} />
                             <h3 className='invisible lg:visible'>{userEmail}</h3>
                             <div className='w-[20px]'></div>
                             <img onClick={() => { setProfilePopupFlag(!profilePopuflag) }} src='https://cdn-icons-png.flaticon.com/128/3899/3899618.png' className='mr-2' height={30} width={30} />
@@ -79,13 +79,13 @@ function CreatorPage() {
 
                         <div style={{ visibility: profilePopuflag ? "visible" : "hidden", width: 200, position: 'absolute', marginTop: 50, marginRight: 5 }} className='flex flex-col bg-[#6962AD] shadow-xl text-white p-3 rounded-xl'>
 
-                            {userEmail != null ? <h4  onClick={() => { localStorage.clear(); navigate("/Login") }}>Sign Out</h4> : <div />}
-                           
-                            <h4  className="mt-2" onClick={() => { localStorage.clear(); navigate("/Login") }}>Log In</h4>
+                            {userEmail != null ? <h4 onClick={() => { localStorage.clear(); navigate("/Login") }}>Sign Out</h4> : <div />}
+
+                            <h4 className="mt-2" onClick={() => { localStorage.clear(); navigate("/Login") }}>Log In</h4>
                         </div>
                     </div>
                 </div>
-                <div className='h-full w-full   p-0 lg:p-10 bg-[#EFECEC]' onClick={()=>{setOpen(false); setProfilePopupFlag(false)}}>
+                <div className='h-full w-full   p-0 lg:p-10 bg-[#EFECEC]' onClick={() => { setOpen(false); setProfilePopupFlag(false) }}>
 
                     {screens[currentItem]}
                 </div>
