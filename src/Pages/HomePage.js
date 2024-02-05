@@ -5,11 +5,13 @@ import CreatorPage from './CreatorPage';
 function HomePage() {
   return (
     <div className="flex   h-full w-full">
-      <img src={img1} style={{ position: 'fixed', height: '100%', width: '100%' }} />
+     
 
       <div className="bg-opacity-10 bg-blur-xl backdrop-blur-lg bg-white-300 rounded-md h-full w-full rounded-lg flex flex-col justify-center items-center">
 
-        <h1 className='text-gray-800 text-[40px] lg:text-[60px] font-bold '> Welcome to Cv maker </h1>
+        <h1 className='text-gray-800 text-[30px] lg:text-[60px] font-bold '> Welcome to Cv maker </h1>
+        <div className='h-[10px]'></div>
+        <h5 className='text-black w-[90%] lg:w-[50%] '>This is a Cv maker which is in beta stage at present there is only one template. In future after your reviews, more templates will be added</h5>
         <div className='h-[30px]'></div>
         <div className='flex flex-row'>
           <Link to="/CreatorPage">

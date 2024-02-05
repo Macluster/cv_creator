@@ -18,7 +18,7 @@ import {
 } from 'recoil';
 import { useState } from "react";
 import { projectAtom } from '../State/Atoms'
-import { set, ref, onValue, push,get,child,getDatabase } from "firebase/database";
+import { set, ref, onValue, push, get, child, getDatabase } from "firebase/database";
 import { firedata, auth } from '../backend/Database'
 
 
@@ -36,18 +36,20 @@ function ProjectPage(props) {
   var isLoggedIn = uid != null ? true : false
 
   if (isLoggedIn) {
-      get(child(ref(getDatabase()), "Users/"+uid+"/ProjectDetails")).then((snapshot) => {
-          if (snapshot.exists()) {
-             setprojectdata(snapshot.val());
-          } else {
-              console.log("No data available");
-          }
-      }).catch((error) => {
-          console.error(error);
-      });
+    get(child(ref(getDatabase()), "Users/" + uid + "/ProjectDetails")).then((snapshot) => {
+      if (snapshot.exists()) {
+        setprojectdata(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
 
   }
   return (
+
+
     <div className="w-full h-full flex flex-col bg-white items-start p-2 lg:p-10 " >
       <div className="flex flex-row">
         <h1 className="font-bold text-2xl  text-[#6962AD]">Project Details</h1>
@@ -60,21 +62,24 @@ function ProjectPage(props) {
       </div>
 
 
-
       <DialogWithForm open={open} setprojectdata={setprojectdata} projectData={peojectData} setOpen={setOpen}></DialogWithForm>
+
+
       <div className="w-full flex justify-between self-end">
-        {peojectData.length > 0 ? <Button onClick={() => { 
-          
+        {peojectData.length > 0 ? <Button onClick={() => {
+
           var uid = localStorage.getItem("uid")
 
           var maptoSend = peojectData
-          set(ref(firedata, "Users/"+uid+"/ProjectDetails"), maptoSend);
-          props.nav(5) }}>Submit</Button> : <div />}
+          set(ref(firedata, "Users/" + uid + "/ProjectDetails"), maptoSend);
+          props.nav(5)
+        }}>Submit</Button> : <div />}
         <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
           <h1 className="text-white font-bold">+</h1>
         </div>
       </div>
     </div>
+
   )
 }
 
@@ -118,15 +123,22 @@ export function DialogWithForm({ open, setprojectdata, projectData, setOpen }) {
   }
 
   return (
-    <>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0, 0, 0, 0.5)", /* semi-transparent overlay */
+      display: open ? "flex" : "none",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999
 
-      <Dialog
-        size="xs"
-        open={open}
+    }} className=" w-[100%] h-[100%] absolute bg-black">
 
-        className="bg-transparent shadow-none"
-      >
-        <Card className="mx-auto w-full max-w-[24rem]">
+      <div className="w-[80%] h-auto ">
+        <Card className="mx-auto w-full max-w-[24rem] shadow-xl">
 
           <CardBody className="flex flex-col gap-4">
             <h1 className="font-bold text-lg">Add Education</h1>
@@ -140,7 +152,7 @@ export function DialogWithForm({ open, setprojectdata, projectData, setOpen }) {
 
           </CardBody>
           <CardFooter className="pt-0">
-          <div className="flex justify-around">
+            <div className="flex justify-around">
               <Button variant="gradient" onClick={() => { set() }} >
                 Submit
               </Button>
@@ -152,8 +164,8 @@ export function DialogWithForm({ open, setprojectdata, projectData, setOpen }) {
 
           </CardFooter>
         </Card>
-      </Dialog>
-    </>
+      </div>
+    </div>
   );
 }
 

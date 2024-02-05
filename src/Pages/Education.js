@@ -20,6 +20,7 @@ import { firedata, auth } from '../backend/Database'
 import { useState } from "react";
 import { EducationAtom } from '../State/Atoms'
 
+
 function EducationPage(props) {
   const [open, setOpen] = React.useState(false);
   const [EducationData, setEducationdata] = useRecoilState(EducationAtom)
@@ -42,12 +43,12 @@ function EducationPage(props) {
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-white items-start p-2 lg:p-10  " >
+    <div className="w-full h-full flex flex-col bg-white items-start  lg:p-10  " >
       <div className="flex flex-row">
-        <h1 className="font-bold text-2xl  text-[#6962AD]">Education Details</h1>
+        <h1 className="font-bold text-2xl p-2  text-[#6962AD]">Education Details</h1>
 
       </div>
-      <div className=" h-[90%]  lg:h-[300px]  w-full  flex flex-col  overflow-auto" style={EducationData.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
+      <div className=" h-[90%]  lg:h-[300px]  w-full  flex flex-col p-2  overflow-auto" style={EducationData.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
         {EducationData.map((e => <EducationCard data={e}></EducationCard>))}
         {EducationData.length > 0 ? <div /> : <h3 className="self-center text-[#747264]">No Items Added</h3>}
 
@@ -59,7 +60,7 @@ function EducationPage(props) {
       <DialogWithForm open={open} setEducationData={setEducationdata} educationData={EducationData} setOpen={setOpen}></DialogWithForm>
 
 
-      <div className="w-full flex justify-between self-end">
+      <div className="w-full flex justify-between self-end p-2">
         {EducationData.length > 0 ? <Button className="w-['200px']" onClick={() => {
 
           var uid = localStorage.getItem("uid")
@@ -118,15 +119,22 @@ export function DialogWithForm({ open, setEducationData, educationData, setOpen 
   }
 
   return (
-    <>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0, 0, 0, 0.5)", /* semi-transparent overlay */
+      display: open ? "flex" : "none",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999
 
-      <Dialog
-        size="xs"
-        open={open}
+    }} className=" w-[100%] h-[100%] absolute bg-black">
 
-        className="bg-transparent shadow-none"
-      >
-        <Card className="mx-auto w-full max-w-[24rem]">
+      <div className="w-[80%] h-auto ">
+        <Card className="mx-auto w-full max-w-[24rem]  shadow-xl">
 
           <CardBody className="flex flex-col gap-4">
             <h1 className="font-bold text-lg">Add Education</h1>
@@ -140,7 +148,7 @@ export function DialogWithForm({ open, setEducationData, educationData, setOpen 
           </CardBody>
           <CardFooter className="pt-0">
             <div className="flex justify-around">
-              <Button variant="gradient" onClick={() => { set() }} >
+              <Button variant="gradient" onClick={() => { set(); setOpen(false)}} >
                 Submit
               </Button>
               <div className="h-[10px]"></div>
@@ -152,8 +160,8 @@ export function DialogWithForm({ open, setEducationData, educationData, setOpen 
 
           </CardFooter>
         </Card>
-      </Dialog>
-    </>
+      </div>
+    </div>
   );
 }
 

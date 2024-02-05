@@ -48,35 +48,40 @@ function OtherPage(props) {
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-white items-start  p-2 lg:p-10 " >
-      <div className="flex flex-row">
-        <h1 className="font-bold text-2xl  text-[#6962AD]" onClick={() => { setSectionDialouge(true) }}>{sectionName}</h1>
-
-      </div>
-      <div className="h-[90%] w-full  flex flex-col  overflow-auto" style={itemsList.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
-        {itemsList.map((e => <OtherCard data={e}></OtherCard>))}
-        {itemsList.length > 0 ? <div /> : <h3 className="self-center text-[#747264]">No Items Added</h3>}
-
-
-      </div>
-
-
-
+    <div className="h-full w-full">
+      <DialogWithForm open={open} setItemList={setItemList} itemsList={itemsList} setOpen={setOpen}></DialogWithForm>
       <DialogForSectionName open={openSectionDialouge} setSectionName={setSectionName} setOpen={setSectionDialouge}></DialogForSectionName>
 
-      <DialogWithForm open={open} setItemList={setItemList} itemsList={itemsList} setOpen={setOpen}></DialogWithForm>
-      <div className="w-full flex justify-between self-end">
-        {itemsList.length > 0 ? <Button className="w-['200px']" onClick={() => {
-          onsubmitbuttonClicked()
-        }}>Submit</Button> : <div />}
-        <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
-          <h1 className="text-white font-bold">+</h1>
+      <div className="w-full h-full flex flex-col bg-white items-start  p-2 lg:p-10 " >
+        <div className="flex flex-row">
+          <h1 className="font-bold text-2xl  text-[#6962AD]" onClick={() => { setSectionDialouge(true) }}>{sectionName}</h1>
+
+        </div>
+        <div className="h-[90%] w-full  flex flex-col  overflow-auto" style={itemsList.length > 0 ? { justifyContent: "start" } : { justifyContent: "center" }}>
+          {itemsList.map((e => <OtherCard data={e}></OtherCard>))}
+          {itemsList.length > 0 ? <div /> : <h3 className="self-center text-[#747264]">No Items Added</h3>}
+
+
         </div>
 
+
+
+
+
+
+        <div className="w-full flex justify-between self-end">
+          {itemsList.length > 0 ? <Button className="w-['200px']" onClick={() => {
+            onsubmitbuttonClicked()
+          }}>Submit</Button> : <div />}
+          <div onClick={() => { setOpen(true) }} className=" h-[50px] w-[50px] rounded-3xl bg-[#6962AD] flex items-center justify-center " >
+            <h1 className="text-white font-bold">+</h1>
+          </div>
+
+        </div>
+
+
+
       </div>
-
-
-
     </div>
   )
 }
@@ -114,14 +119,21 @@ export function DialogWithForm({ open, setItemList, itemsList, setOpen }) {
   }
 
   return (
-    <>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0, 0, 0, 0.5)", /* semi-transparent overlay */
+      display: open ? "flex" : "none",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999
 
-      <Dialog
-        size="xs"
-        open={open}
+    }} className=" w-[100%] h-[100%] absolute bg-black">
 
-        className="bg-transparent shadow-none"
-      >
+      <div className="w-[80%] h-auto ">
         <Card className="mx-auto w-full max-w-[24rem]">
 
           <CardBody className="flex flex-col gap-4">
@@ -147,8 +159,8 @@ export function DialogWithForm({ open, setItemList, itemsList, setOpen }) {
 
           </CardFooter>
         </Card>
-      </Dialog>
-    </>
+      </div>
+    </div>
   );
 }
 
@@ -169,14 +181,21 @@ export function DialogForSectionName({ open, setSectionName, setOpen }) {
   }
 
   return (
-    <>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0, 0, 0, 0.5)", /* semi-transparent overlay */
+      display: open ? "flex" : "none",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999
 
-      <Dialog
-        size="xs"
-        open={open}
+    }} className=" w-[100%] h-[100%] absolute bg-black">
 
-        className="bg-transparent shadow-none"
-      >
+      <div className="w-[80%] h-auto ">
         <Card className="mx-auto w-full max-w-[24rem]">
 
           <CardBody className="flex flex-col gap-4">
@@ -202,8 +221,8 @@ export function DialogForSectionName({ open, setSectionName, setOpen }) {
 
           </CardFooter>
         </Card>
-      </Dialog>
-    </>
+      </div>
+    </div>
   );
 }
 

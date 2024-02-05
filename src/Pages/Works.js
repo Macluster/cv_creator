@@ -43,6 +43,10 @@ function WorkexperiencePage(props) {
   }
 
   return (
+    <div className="w-full h-full">
+            <DialogWithForm open={open} setWorkdata={setWorkdata} workData={workData} setOpen={setOpen}></DialogWithForm>
+
+  
     <div className="w-full h-full flex flex-col bg-white items-start p-2 lg:p-10 " >
       <div className="flex flex-row">
         <h1 className="font-bold text-2xl  text-[#6962AD]">Work Details</h1>
@@ -57,7 +61,6 @@ function WorkexperiencePage(props) {
 
 
 
-      <DialogWithForm open={open} setWorkdata={setWorkdata} workData={workData} setOpen={setOpen}></DialogWithForm>
       <div className="w-full flex justify-between self-end">
         {workData.length > 0 ? <Button onClick={() => {
           var uid = localStorage.getItem("uid")
@@ -70,6 +73,7 @@ function WorkexperiencePage(props) {
           <h1 className="text-white font-bold">+</h1>
         </div>
       </div>
+    </div>
     </div>
   )
 }
@@ -115,15 +119,22 @@ export function DialogWithForm({ open, setWorkdata, workData, setOpen }) {
   }
 
   return (
-    <>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0, 0, 0, 0.5)", /* semi-transparent overlay */
+      display: open ? "flex" : "none",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999
 
-      <Dialog
-        size="xs"
-        open={open}
+    }} className=" w-[100%] h-[100%] absolute bg-black">
 
-        className="bg-transparent shadow-none"
-      >
-        <Card className="mx-auto w-full max-w-[24rem]">
+      <div className="w-[80%] h-auto">
+        <Card className="mx-auto w-full max-w-[24rem] shadow-xl">
 
           <CardBody className="flex flex-col gap-4">
             <h1 className="font-bold text-lg">Add Work</h1>
@@ -149,8 +160,8 @@ export function DialogWithForm({ open, setWorkdata, workData, setOpen }) {
 
           </CardFooter>
         </Card>
-      </Dialog>
-    </>
+      </div>
+    </div>
   );
 }
 

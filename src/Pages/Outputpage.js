@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import html2canvas from 'html2canvas';
-import { workExperienceAtom, basicDetailsAtom, EducationAtom, skillAtom, projectAtom,otherAtom } from '../State/Atoms.js'
+import { workExperienceAtom, basicDetailsAtom, EducationAtom, skillAtom, projectAtom, otherAtom } from '../State/Atoms.js'
 
 import {
 
@@ -19,7 +19,7 @@ function OutputPage() {
     const educationData = useRecoilValue(EducationAtom)
     const skillData = useRecoilValue(skillAtom)
     const projectData = useRecoilValue(projectAtom)
-    const otherData=useRecoilValue(otherAtom)
+    const otherData = useRecoilValue(otherAtom)
     function handleChange(e) {
         console.log(e.target.files);
         setFile(URL.createObjectURL(e.target.files[0]));
@@ -36,28 +36,24 @@ function OutputPage() {
     function DesktopView() {
         return (
             <div className="w-full h-full flex flex-col">
-                <div className="flex flex-row items-center  justify-around ">
-                    <div className="flex flex-row">
-                    <h1 className="font-bold text-4xl">YOUR CV</h1>
-                    <div className="w-[40px]"></div>
-                    <button className="bg-slate-700 w-[100px] rounded-lg font-bold text-white" style={{ backgroundColor: 'blueviolet' }} onClick={(e) => { print() }}>Print</button>
+                <div className="flex flex-row   justify-around ">
+                    <div className="flex flex-row items-center mt-3">
+                        <h1 className="font-bold text-lg lg:text-4xl">YOUR CV</h1>
+                        <div className="w-[40px]"></div>
+                        <button className="bg-slate-700 h-[30px] w-[100px] rounded-lg font-bold text-white" style={{ backgroundColor: 'blueviolet' }} onClick={(e) => { print() }}>Print</button>
                     </div>
-                   <div className="flex flex-row">
-                   <div className="">Help us improve by </div>
-                   <div className="w-[10px]"></div>
-                   <button className="bg-slate-700 w-[100px] rounded-lg font-bold text-white" style={{ backgroundColor: 'blueviolet' }} onClick={(e) => { print() }}>Add Review</button>
-                   </div>
-                
+                    
+
                 </div>
 
                 <div className="h-[30px]"></div>
-                <div className="h-[400px]  overflow-scroll">
+                <div className=" h[600px]  lg:h-[400px]  overflow-scroll">
 
 
                     <div id="cv" className="shadow-xl w-[100%] h-[500px] lg:h-[1100px] flex flex-row  ">
                         <div className="h-full w-[40%] lg:w-[30%] bg-black flex flex-col items-center p-0" >
                             <div className="h-[20px]"></div>
-                            <ProfileImage handleChange={handleChange} file={    basicData['image']}></ProfileImage>
+                            <ProfileImage handleChange={handleChange} file={basicData['image']}></ProfileImage>
                             <div className="h-[40px]"></div>
                             <ContactCard keyy="Email" value={basicData['email']} ></ContactCard>
                             <ContactCard keyy="Phone" value={basicData['phone']} ></ContactCard>
@@ -86,15 +82,15 @@ function OutputPage() {
                             <div style={{ height: 5 }}></div>
                             {projectData.map((item) => (<Project data={item}></Project>))}
 
-                            {otherData.map((item)=>(<div><div style={{ height: 10 }}></div>
-                            <h5 className="font-bold text-[9px] lg:text-lg  text-start">{item['sectionName']}</h5>
-                            <div style={{ height: 5 }}></div>
-                            {item['items'].map((e) => (<OtherDataCard name={e['certificateName']} desc={e['description']}/>))}</div>))}
+                            {otherData.map((item) => (<div><div style={{ height: 10 }}></div>
+                                <h5 className="font-bold text-[9px] lg:text-lg  text-start">{item['sectionName']}</h5>
+                                <div style={{ height: 5 }}></div>
+                                {item['items'].map((e) => (<OtherDataCard name={e['certificateName']} desc={e['description']} />))}</div>))}
 
 
-                            
 
-                            
+
+
 
 
 
@@ -152,7 +148,7 @@ function OutputPage() {
 
 
 
-                            
+
 
 
 
@@ -174,7 +170,7 @@ function ProfileImage(props) {
     return (
         <div className="h-[50px] w-[50px] lg:h-[100px] lg:w-[100px]">
             <input type="file" onChange={props.handleChange} style={{ height: 100, width: 100, backgroundColor: "red", position: "absolute", opacity: 0 }}></input>
-            <img src={props.file != null ? props.file : "https://cdn-icons-png.flaticon.com/128/149/149071.png"} alt={"https://cdn-icons-png.flaticon.com/128/149/149071.png"} className="h-[50px] w-[50px] lg:h-[100px] lg:w-[100px]" style={{ borderRadius: '50%' }} />
+            <img src={props.file != null ? props.file: "https://cdn-icons-png.flaticon.com/128/149/149071.png"} alt={"https://cdn-icons-png.flaticon.com/128/149/149071.png"} className="h-[50px] w-[50px] lg:h-[100px] lg:w-[100px]" style={{ borderRadius: '50%' }} />
         </div>
 
     )
@@ -189,7 +185,7 @@ function OtherDataCard(props) {
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: 'start' }}>
                 <h6 className="  text-[7px] lg:text-lg  text-start">{props.desc}</h6>
-               
+
 
             </div>
 
@@ -236,7 +232,7 @@ function SkillsCard(props) {
 
     return (
         <div style={{ display: "flex", flexDirection: "row", justifyContent: 'start', alignItems: "center", color: "gray", width: '70%' }} className="">
-            <h6 className=" text-[7px] lg:text-lg w-[50x] lg:w-[200px] text-start">{props.skillName}</h6>
+            <h6 className=" text-[7px] lg:text-lg w-[50x]  lg:w-[200px] text-start" style={{width:"50%"}}>{props.skillName}</h6>
             <div style={{ width: 30 }}></div>
             <div className="w-[200px] h-[20px] flex flex-row items-center ">
                 <div style={{ height: 10, width: props.skillLevel + "0%", backgroundColor: 'yellow' }}></div>

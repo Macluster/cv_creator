@@ -22,7 +22,7 @@ function App() {
       <RecoilRoot>
       <Router>
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/cv_creator" element={<HomePage />} />
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/CreatorPage" element={<CreatorPage />} />
           <Route path="/SignUp" element={<SignUpPage/>} />
